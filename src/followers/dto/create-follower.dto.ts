@@ -1,4 +1,6 @@
 export class CreateFollowerDto {
-    followerId: string;
+    id: number;
+    followerId: number;
     userId: number;
+
 }
