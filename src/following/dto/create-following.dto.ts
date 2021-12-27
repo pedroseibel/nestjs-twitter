@@ -1,4 +1,5 @@
 export class CreateFollowingDto {
-    followingId: string;
+    id: number;
+    followingId: number;
     userId: number;
 }
