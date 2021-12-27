@@ -9,3 +9,40 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id          Int         @default(autoincrement()) @id 
+  name        String
+  birthday    String
+  image       String
+  bio         String
+  followers   Followers[]
+  following   Following[]
+  createdAt   DateTime    @default(now()) @map(name: "created_at")
+  updatedAt   DateTime   @updatedAt @map(name: "updated_at")
+  tweet       Tweet[]
+}
+
+model Followers {
+  id              Int @default(autoincrement()) @id 
+  followerId      Int
+  users           User[]
+  userId          Int
+}
+
+model Following {
+  id              Int @default(autoincrement()) @id 
+  followingId     String
+  users           User[]
+  userId          Int
+}
+
+model Tweet {
+  id           Int @default(autoincrement()) @id 
+  userId       Int
+  users        User[]
+  text         String @db.VarChar(280)
+  emoji        String
+  likes        Int
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+}
