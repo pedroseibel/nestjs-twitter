@@ -4,10 +4,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, User } from '@prisma/client'
 import * as bcrypt from 'bcrypt';
+import { JwtPayload } from 'src/auth/jwt.strategy';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService){}
+  constructor(private prisma: PrismaService) {}
 
   async create(data: Prisma.UserCreateInput): Promise<User> {
     data.password = await bcrypt.hash(data.password, 10);
@@ -29,6 +30,20 @@ export class UserService {
     
     if (!equalPassword) {
       throw new HttpException('Invalid Credentials', HttpStatus.UNAUTHORIZED);
+    }
+
+    return user;
+  }
+
+  async validateUser(payload: JwtPayload): Promise<User> {
+    const user = await this.prisma.user.findFirst({
+      where: {
+        email: payload.email,
+      }
+    });
+
+    if(!user) {
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
 
     return user;
