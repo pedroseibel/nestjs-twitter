@@ -13,7 +13,7 @@ export class AuthController {
     }
 
     @Get()
-    @UseGuards(AuthGuard())
+    @UseGuards(AuthGuard()) // Authentication endpoint
     async checkLogin(){
         return 'Logged in';
     }

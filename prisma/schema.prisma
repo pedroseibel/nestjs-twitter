@@ -20,8 +20,8 @@ model User {
   bio         String
   followers   Followers[]
   following   Following[]
-  createdAt   DateTime    @default(now()) @map(name: "created_at")
-  updatedAt   DateTime   @updatedAt @map(name: "updated_at")
+  createdAt   DateTime    @default(now()) 
+  updatedAt   DateTime   @default(now())
   tweet       Tweet[]
 }
 
@@ -42,9 +42,9 @@ model Following {
 model Tweet {
   id           Int @default(autoincrement()) @id 
   userId       Int
-  users        User[]
+  tweetAuthor  User[]
   text         String @db.VarChar(280)
   emoji        String
   likes        Int
-  createdAt    DateTime @default(now()) @map(name: "created_at")
+  createdAt    DateTime @default(now())
 }
