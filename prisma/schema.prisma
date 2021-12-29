@@ -16,8 +16,8 @@ model User {
   birthday    String
   email       String      @unique
   password    String
-  image       String
-  bio         String
+  image       String?
+  bio         String?
   followers   Followers[]
   following   Following[]
   createdAt   DateTime    @default(now()) 
@@ -44,7 +44,7 @@ model Tweet {
   userId       Int
   tweetAuthor  User[]
   text         String @db.VarChar(280)
-  emoji        String
+  emoji        String?
   likes        Int
   createdAt    DateTime @default(now())
 }
