@@ -1,8 +1,8 @@
-import { IsDate, IsInt, IsNotEmpty, IsString, Max } from "class-validator";
+import { IsDate, IsNumber, IsNotEmpty, IsString, Max } from "class-validator";
 
 export class CreateTweetDto {
     @IsNotEmpty()
-    @IsInt()
+    @IsNumber()
     userId: number;
 
     @IsNotEmpty()
@@ -14,8 +14,7 @@ export class CreateTweetDto {
     @IsString()
     emoji: string;
 
-    @IsNotEmpty()
-    @IsInt()
+    @IsNumber()
     likes: number;
 
     @IsNotEmpty()

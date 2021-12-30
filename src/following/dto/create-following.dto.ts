@@ -1,11 +1,11 @@
-import { IsInt, IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsNumber } from "class-validator";
 
 export class CreateFollowingDto {
     @IsNotEmpty()
-    @IsInt()
+    @IsNumber()
     followingId: number;
     
     @IsNotEmpty()
-    @IsInt()
+    @IsNumber()
     userId: number;
 }
