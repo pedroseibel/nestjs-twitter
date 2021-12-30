@@ -13,7 +13,7 @@ datasource db {
 model User {
   id          Int         @default(autoincrement()) @id 
   name        String
-  birthday    String
+  birthday    DateTime
   email       String      @unique
   password    String
   image       String?
@@ -27,22 +27,20 @@ model User {
 
 model Followers {
   id              Int @default(autoincrement()) @id 
-  followerId      Int
   users           User[]
   userId          Int
 }
 
 model Following {
   id              Int @default(autoincrement()) @id 
-  followingId     Int
-  users           User[]
   userId          Int
+  users           User[]
 }
 
 model Tweet {
   id           Int @default(autoincrement()) @id 
   userId       Int
-  tweetAuthor  User[]
+  tweetAuthor  User? @relation(fields: [userId], references: [id])
   text         String @db.VarChar(280)
   emoji        String?
   likes        Int
