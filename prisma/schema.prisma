@@ -21,8 +21,8 @@ model User {
   followers   Followers[]
   following   Following[]
   createdAt   DateTime    @default(now()) 
-  updatedAt   DateTime   @default(now())
-  tweet       Tweet[]
+  updatedAt   DateTime   @updatedAt
+  tweets      Tweet[]
 }
 
 model Followers {
