@@ -11,38 +11,40 @@ datasource db {
 }
 
 model User {
-  id          Int         @default(autoincrement()) @id 
+  id          Int          @default(autoincrement()) @id 
   name        String
   birthday    DateTime
-  email       String      @unique
+  email       String        @unique
   password    String
   image       String?
   bio         String?
   followers   Followers[]
   following   Following[]
-  createdAt   DateTime    @default(now()) 
-  updatedAt   DateTime   @updatedAt
   tweets      Tweet[]
+  createdAt   DateTime      @default(now()) 
+  updatedAt   DateTime      @updatedAt
 }
 
 model Followers {
-  id              Int @default(autoincrement()) @id 
-  users           User[]
-  userId          Int
+  id              Int       @default(autoincrement()) @id 
+  followerId      Int
+  userId          Int?
+  users           User?     @relation(fields: [userId], references: [id])
 }
 
 model Following {
-  id              Int @default(autoincrement()) @id 
+  id              Int       @default(autoincrement()) @id 
+  followingId     Int
   userId          Int
-  users           User[]
+  users           User?     @relation(fields: [userId], references: [id])
 }
 
 model Tweet {
-  id           Int @default(autoincrement()) @id 
+  id           Int          @default(autoincrement()) @id 
   userId       Int
-  tweetAuthor  User? @relation(fields: [userId], references: [id])
-  text         String @db.VarChar(280)
+  tweetAuthor  User?        @relation(fields: [userId], references: [id])
+  text         String       @db.VarChar(280)
   emoji        String?
   likes        Int
-  createdAt    DateTime @default(now())
+  createdAt    DateTime     @default(now())
 }
