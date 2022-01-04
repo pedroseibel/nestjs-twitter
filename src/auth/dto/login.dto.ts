@@ -6,8 +6,7 @@ export class LoginDto {
     name: string;
 
     @IsNotEmpty()
-    @IsDateString()
-    birthday: string | Date;
+    birthday: string;
 
     @IsString()
     image: string;
