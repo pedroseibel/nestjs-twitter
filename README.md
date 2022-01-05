@@ -1,73 +1,218 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# API de Rede Social com NestJS 
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto consiste em uma API de controle para rede social que permite ao usuário postar tweets, seguir e ser seguido de volta.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Dependências:
+ **Node.js** - LTS Version: **16.13.1**
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Download](https://nodejs.org/en/download/)
+[Documentação](https://nodejs.org/en/docs/)
 
-## Installation
+**NestJS** - Version: 8.2.4
+[Documentação](https://docs.nestjs.com/)
 
+**Prisma**
+[Documentação](https://www.prisma.io/docs/)
+
+**PostgreSQL** - Version **14.1**
+[Download](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+[Documentação](https://www.postgresql.org/docs/14/release-14.html)
+
+**JWT**
+[Documentação](https://www.npmjs.com/package/jwt)
+
+**Bcrypt**
+[Documentação](https://www.npmjs.com/package/bcrypt)
+
+<br/><br/>
+
+Após ter instalado o Node.js, basta executar o seguinte comando em um terminal e as outras depedências serão instaladas automaticamente
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Como executar: 
 
+Para iniciar o servidor, execute o seguinte comando no terminal
 ```bash
-# development
-$ npm run start
-
-# watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+O servidor rodará em http://localhost:3000
 
-```bash
-# unit tests
-$ npm run test
+A documentação através do Swagger pode ser vista em http://localhost:3000/api
 
-# e2e tests
-$ npm run test:e2e
+---
 
-# test coverage
-$ npm run test:cov
+#### AUTH
+<br/><br/>
+#### POST - `/auth`
+Essa rota gera um token de autenticação.
+
+###### Request:
+
+```javascript
+{   
+  "email": String,
+  "password": String
+}
 ```
 
-## Support
+###### Response:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```javascript
+{
+  "email": "pedro@pedro.com",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBlZHJvQHBlZHJvLmNvbSIsImlhdCI6MTY0MTI2Mzc3OSwiZXhwIjoxNjQxMjYzODM5fQ.zZ_T3s4n4kjhwLG-1v4KzcXZMg4KcY7MAqSA2NsrnjA"
+}
+```
 
-## Stay in touch
+<br/><br/>
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### GET - `/auth`
+Nessa rota você insere o token de acesso para autenticação.
 
-## License
+###### Request:
 
-Nest is [MIT licensed](LICENSE).
+```javascript
+{
+    "email": "pedro@pedro.com",
+    "password": "teste123"
+}
+```
+
+---
+
+#### USER
+<br/><br/>
+#### POST - `/user`
+Adiciona um novo usuário à database.
+
+###### Request:
+
+```javascript
+{   
+  "name": String,
+  "birthday": String, 
+  "image": String, 
+  "bio" String, 
+  "email": String,
+  "password": String
+}
+```
+<br/><br/>
+#### GET - `/user`
+Retorna todos os usuários.
+
+###### Response:
+
+```javascript
+{
+    "id": 1,
+    "name": "Pedro",
+    "birthday": "1997-12-21",
+    "email": "pedro@pedro.com",
+    "password": "$2b$10$7UpceIIvile6eexRxE37vuaR4mrczOxLFvGdFGEjNnrxY1KJKlBwW",
+    "image": "profilepic.jpg",
+    "bio": "Hello, World.",
+    "createdAt": "2022-01-04T02:07:05.105Z",
+    "updatedAt": "2022-01-04T02:07:05.153Z"
+  }
+```
+<br/><br/>
+#### DELETE - `/user/:id` 
+Apaga um usuário pelo id.
+<br/><br/>
+#### GET - `/user/:id`
+Busca um usuário pelo id.
+<br/><br/>
+#### PATCH - `/user/:id`
+Atualiza as informações de um usuário pelo id.
+
+---
+
+#### TWEET
+<br/><br/>
+#### POST - `/tweet` 
+Cria um novo tweet.
+
+###### Request:
+
+```javascript
+{   
+  "text": String,
+  "emoji": String 
+}
+```
+<br/><br/>
+#### GET - `/tweet` 
+Retorna todos os tweets.
+<br/><br/>
+
+#### DELETE - `/tweet/:id`
+Apaga um tweet pelo id.
+<br/><br/>
+#### GET - `/tweet/:id`
+Retorna um tweet pelo id.
+<br/><br/>
+#### PATCH - `/tweet/:id`
+Atualiza o tweet pelo id.
+
+---
+
+#### FOLLOWERS
+<br/><br/>
+#### POST - `/followers`  
+Segue um usuário.
+
+
+###### Request:
+
+```javascript
+{   
+  "followerId": Number,
+  "userId"  Number
+}
+```
+
+#### GET - `/followers`
+Retorna todos os seguidores.
+<br/><br/>
+#### DELETE - `/followers/:id`
+Remove um seguidor pelo id.
+<br/><br/>
+#### GET - `/followers/:id`
+Retorna um seguidor pelo id.
+<br/><br/>
+#### PATCH - `/followers/:id`
+Atualiza um seguidor pelo id.
+
+
+---
+
+#### FOLLOWING
+<br/><br/>
+#### POST - `/following`
+Segue um usuário.
+
+###### REQUEST:
+
+```javascript
+{   
+  "followingId": Number,
+  "userId"  Number,
+}
+```
+<br/><br/>
+#### GET - `/following`
+Retorna todos que estão seguindo.
+<br/><br/>
+#### DELETE - `/following/:id` 
+Apaga quem segue pelo id.
+<br/><br/>
+#### GET - `/following/:id`
+Retorna quem segue pelo id.
+<br/><br/>
+#### PATCH - `/following/:id`
+Atualiza quem segue pelo id.
