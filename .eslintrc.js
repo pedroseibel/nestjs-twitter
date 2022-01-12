@@ -1,13 +1,21 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: 'tsconfig.json',
+    project: 'twitter/tsconfig.json',
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+  ],
+  exclude: [
+    'node_modules',
+    'test',
+    'dist',
+    '**/*spec.ts',
+    'tweets.ts',
+    'prisma', 
   ],
   root: true,
   env: {
@@ -22,3 +30,4 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
   },
 };
+
